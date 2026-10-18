@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARVIO.NSTUDIO | Your Ideas, Our Creation!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#080c14',
+                        darkCard: '#111827',
+                        accentBlue: '#3b82f6',
+                        accentPurple: '#8b5cf6',
+                        glowBlue: '#2563eb',
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s infinite alternate',
+                        'float': 'float 4s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.4))' },
+                            '100%': { filter: 'drop-shadow(0 0 35px rgba(139, 92, 246, 0.8))' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & Glassmorphism */
+        body {
+            background-color: #080c14;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-nav {
+            background: rgba(8, 12, 20, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-6px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080c14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- SPLASH SCREEN ANIMATION -->
+    <div id="splash-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05080f] transition-opacity duration-700">
+        <div class="relative flex flex-col items-center px-4 text-center animate-slide-up">
+            <!-- Image Logo ARVIO (Bulat & Animasi dari Bawah ke Atas) -->
+            <div class="relative w-40 h-40 md:w-52 md:h-52 mb-6 animate-pulse-glow flex items-center justify-center rounded-full overflow-hidden border-2 border-blue-500/30 shadow-2xl">
+                <img src="./logo/logo.jpeg" alt="ARVIO.NSTUDIO Logo" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Brand Name & Slogan Animation -->
+            <h1 class="font-heading text-3xl md:text-5xl font-extrabold tracking-wider text-white mb-2">
+                ARVIO<span class="text-blue-500">.</span>NSTUDIO
+            </h1>
+            <p class="text-blue-400 font-medium tracking-widest text-xs md:text-sm uppercase mb-4 opacity-90">
+                EDIT • DESIGN • DEVELOP • CREATE
+            </p>
+            <p class="text-slate-400 text-sm italic mb-8">
+                "Your Ideas, Our Creation!"
+            </p>
+
+            <!-- Loading Bar or Manual Enter -->
+            <div class="w-48 h-1 bg-slate-800 rounded-full overflow-hidden mb-6">
+                <div id="progress-bar" class="w-0 h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-2000 linear"></div>
+            </div>
+
+            <button onclick="dismissSplash()" class="px-6 py-2.5 rounded-full glass-panel border border-blue-500/30 text-xs font-semibold tracking-wider text-slate-200 hover:text-white hover:border-blue-500 transition-all duration-300">
+                MASUK KE STUDIO <i class="fa-solid fa-arrow-right ml-2 text-blue-400"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600 p-0.5 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                    <img src="./logo/logo.jpeg" alt="Logo" class="w-full h-full object-cover rounded-full">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-extrabold text-xl tracking-wider text-white leading-none">
+                        ARVIO<span class="text-blue-500">.</span>NSTUDIO
+                    </span>
+                    <span class="text-[9px] text-slate-400 font-semibold tracking-widest uppercase mt-1">Digital Creator Studio</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#tentang" class="hover:text-blue-400 transition-colors">Tentang</a>
+                <a href="#layanan" class="hover:text-blue-400 transition-colors">Layanan</a>
+                <a href="#portofolio" class="hover:text-blue-400 transition-colors">Portofolio</a>
+                <a href="#alur" class="hover:text-blue-400 transition-colors">Alur Kerja</a>
+                <a href="#tim" class="hover:text-blue-400 transition-colors">Tim</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button onclick="openContactModal()" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold rounded-full group bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/20">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-darkBg rounded-full group-hover:bg-opacity-0">
+                        <i class="fa-brands fa-whatsapp text-green-400 mr-2 text-sm"></i> Konsultasi Gratis
+                    </span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <a href="#tentang" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-blue-400 font-medium">Tentang Kami</a>
+            <a href="#layanan" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-blue-400 font-medium">Layanan</a>
+            <a href="#portofolio" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-blue-400 font-medium">Portofolio</a>
+            <a href="#alur" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-blue-400 font-medium">Alur Kerja</a>
+            <a href="#tim" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-blue-400 font-medium">Tim Kami</a>
+            <button onclick="toggleMobileMenu(); openContactModal()" class="w-full mt-2 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-semibold flex items-center justify-center">
+                <i class="fa-brands fa-whatsapp mr-2 text-base"></i> Hubungi WhatsApp
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[350px] h-[350px] bg-purple-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full glass-panel border border-blue-500/30 text-xs font-medium text-blue-400 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
+                        <span>Studio Kreator Digital Modern & Terpercaya</span>
+                    </div>
+
+                    <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6">
+                        Your Ideas, <br class="hidden sm:inline" />
+                        <span class="text-gradient">Our Creation!</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed mb-8">
+                        Kami membantu <strong class="text-white font-semibold">UMKM</strong>, <strong class="text-white font-semibold">Lembaga Pendidikan</strong>, dan <strong class="text-white font-semibold">Perusahaan</strong> menampilkan identitas visual yang rapi, profesional, serta membangun solusi digital siap pakai.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#portofolio" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/25 transition-all text-center flex items-center justify-center">
+                            Lihat Karya Portofolio <i class="fa-solid fa-arrow-down ml-2 text-xs"></i>
+                        </a>
+                        <button onclick="openContactModal()" class="w-full sm:w-auto px-8 py-3.5 glass-panel hover:bg-slate-800/80 text-slate-200 border border-slate-700/80 rounded-xl font-semibold transition-all text-center">
+                            Mulai Konsultasi
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 pt-8 border-t border-slate-800/80 text-left">
+                        <div>
+                            <div class="text-blue-400 text-lg font-bold mb-1"><i class="fa-solid fa-pen-nib mr-1.5"></i> Edit</div>
+                            <p class="text-xs text-slate-400">Media & Content</p>
+                        </div>
+                        <div>
+                            <div class="text-purple-400 text-lg font-bold mb-1"><i class="fa-solid fa-palette mr-1.5"></i> Design</div>
+                            <p class="text-xs text-slate-400">Branding & Visual</p>
+                        </div>
+                        <div>
+                            <div class="text-indigo-400 text-lg font-bold mb-1"><i class="fa-solid fa-code mr-1.5"></i> Develop</div>
+                            <p class="text-xs text-slate-400">Web & Android</p>
+                        </div>
+                        <div>
+                            <div class="text-pink-400 text-lg font-bold mb-1"><i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Create</div>
+                            <p class="text-xs text-slate-400">Digital Solution</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-30 blur-xl"></div>
+                        
+                        <div class="relative glass-panel rounded-3xl p-6 border border-slate-700/50 shadow-2xl">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">ARVIO.NSTUDIO v2026</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-blue-500/40 transition-colors flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl flex-shrink-0">
+                                        <i class="fa-solid fa-globe"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-white">Website & Landing Page</h4>
+                                        <p class="text-xs text-slate-400">Profil Perusahaan & Sekolah Responsif</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/40 transition-colors flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl flex-shrink-0">
+                                        <i class="fa-solid fa-mobile-screen-button"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-white">Aplikasi Android (APK)</h4>
+                                        <p class="text-xs text-slate-400">Katalog Produk & Informasi Lembaga</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-pink-500/40 transition-colors flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-xl flex-shrink-0">
+                                        <i class="fa-solid fa-pen-nib"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-white">Desain Grafis & Video</h4>
+                                        <p class="text-xs text-slate-400">Logo, Brosur, PPT & Konten Medsos</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-emerald-400 mr-2"></span> Terbuka untuk Proyek Baru</span>
+                                <span class="font-semibold text-blue-400">ARVIO Studio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT & CORE VALUES SECTION -->
+    <section id="tentang" class="py-20 relative bg-slate-950/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400 uppercase tracking-wider">
+                        Tentang Kami
+                    </div>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+                        Mitra Digital Kreatif & Terpercaya untuk Pertumbuhan Anda
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        <strong class="text-white">ARVIO.NSTUDIO</strong> adalah studio kreator digital yang berfokus pada desain grafis, pembuatan website, dan pengembangan aplikasi Android. Kami membantu UMKM, lembaga pendidikan, dan perusahaan menampilkan identitas mereka secara rapi dan profesional.
+                    </p>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Kami mengutamakan komunikasi yang jelas, pengerjaan yang rapi, dan hasil fungsional yang sesuai dengan skala serta kebutuhan nyata klien.
+                    </p>
+
+                    <div class="p-4 rounded-2xl glass-panel border-l-4 border-l-blue-500 mt-4">
+                        <h4 class="text-sm font-bold text-white mb-1">Visi Kami</h4>
+                        <p class="text-xs text-slate-300">Menjadi mitra digital yang dapat diandalkan bagi UMKM, lembaga pendidikan, dan perusahaan dalam membangun identitas visual dan solusi digital.</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-6 rounded-2xl glass-panel card-hover border border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl mb-4">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-white mb-2">Jujur</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Menyampaikan kemampuan dan batasan pekerjaan secara terbuka sejak awal konsultasi.
+                            </p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-panel card-hover border border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-white mb-2">Rapi</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Memperhatikan setiap detail, konsistensi warna, tipografi, dan kerapihan tata letak desain.
+                            </p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-panel card-hover border border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl mb-4">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-white mb-2">Tepat Guna</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Solusi digital dirancang sesuai kebutuhan fungsional klien, bukan sekadar mengikuti tren.
+                            </p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-panel card-hover border border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-xl mb-4">
+                                <i class="fa-solid fa-shield-check"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-white mb-2">Bertanggung Jawab</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Menyelesaikan setiap proyek sesuai kesepakatan tenggat waktu dan spesifikasi akhir.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="layanan" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-xs font-semibold text-purple-400 uppercase tracking-wider mb-3">
+                    Layanan Utama
+                </div>
+                <h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Solusi Digital Lengkap untuk Bisnis & Lembaga
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-4">
+                    Layanan kami disesuaikan dengan kebutuhan, skala proyek, dan anggaran masing-masing klien secara fleksibel.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-3xl glass-panel card-hover border border-slate-800/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/5 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl mb-6">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-3">Desain Grafis</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Visualisasi merek yang memikat untuk memperkuat citra profesional usaha Anda.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2"></i> Logo & Identitas Visual</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2"></i> Poster, Brosur & Banner</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2"></i> Konten Media Sosial</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2"></i> Desain Presentasi (PPT)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2"></i> Undangan & Sertifikat</li>
+                        </ul>
+                    </div>
+                    <button onclick="openContactModal('Desain Grafis')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-blue-600 text-xs font-semibold text-slate-200 hover:text-white transition-colors text-center">
+                        Pesan Desain
+                    </button>
+                </div>
+
+                <div class="p-6 rounded-3xl glass-panel card-hover border border-slate-800/80 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -top-12 -right-12 w-28 h-28 bg-blue-500/10 rounded-full blur-xl pointer-events-none"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/5 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl mb-6">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-3">Pembuatan Website</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Website modern, cepat, dan responsif di semua jenis perangkat (HP & Laptop).
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2"></i> Website Company Profile</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2"></i> Website Sekolah / Lembaga</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2"></i> Landing Page Promosi</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2"></i> Tampilan Fully Responsive</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2"></i> SEO-Friendly & Modern UI</li>
+                        </ul>
+                    </div>
+                    <button onclick="openContactModal('Pembuatan Website')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-purple-600 text-xs font-semibold text-slate-200 hover:text-white transition-colors text-center">
+                        Buat Website
+                    </button>
+                </div>
+
+                <div class="p-6 rounded-3xl glass-panel card-hover border border-slate-800/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/5 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mb-6">
+                            <i class="fa-brands fa-android"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-3">Aplikasi Android</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Aplikasi Android sederhana (APK) disesuaikan dengan skala dan operasional.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Aplikasi Katalog Produk</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Informasi Lembaga / Sekolah</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Pencatatan Data Sederhana</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> File APK Siap Install</li>
+                        </ul>
+                    </div>
+                    <button onclick="openContactModal('Aplikasi Android')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-emerald-600 text-xs font-semibold text-slate-200 hover:text-white transition-colors text-center">
+                        Kembangkan App
+                    </button>
+                </div>
+
+                <div class="p-6 rounded-3xl glass-panel card-hover border border-slate-800/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-600/5 border border-pink-500/30 flex items-center justify-center text-pink-400 text-2xl mb-6">
+                            <i class="fa-solid fa-film"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-3">Editing Foto & Video</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Penyuntingan media visual promosi untuk menarik perhatian target audiens.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2"></i> Editing Foto Produk</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2"></i> Dokumentasi Kegiatan</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2"></i> Video Pendek Promosi (Reels/TikTok)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2"></i> Penyesuaian Visual Medsos</li>
+                        </ul>
+                    </div>
+                    <button onclick="openContactModal('Editing Video')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-pink-600 text-xs font-semibold text-slate-200 hover:text-white transition-colors text-center">
+                        Edit Video / Foto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SHOWCASE SECTION -->
+    <section id="portofolio" class="py-24 relative bg-slate-950/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400 uppercase tracking-wider mb-3">
+                        Karya & Portofolio
+                    </div>
+                    <h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                        Proyek Terbaru Kami
+                    </h2>
+                </div>
+
+                <div class="mt-6 md:mt-0 flex flex-wrap gap-2">
+                    <button onclick="filterPortfolio('all')" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold glass-panel border border-blue-500 text-white transition-all">
+                        Semua Proyek
+                    </button>
+                    <button onclick="filterPortfolio('web')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold glass-panel text-slate-400 hover:text-white transition-all">
+                        Website
+                    </button>
+                    <button onclick="filterPortfolio('app')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold glass-panel text-slate-400 hover:text-white transition-all">
+                        Aplikasi
+                    </button>
+                    <button onclick="filterPortfolio('design')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold glass-panel text-slate-400 hover:text-white transition-all">
+                        Desain Grafis
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="portfolio-item web p-5 rounded-3xl glass-panel border border-slate-800 card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="relative w-full h-48 rounded-2xl overflow-hidden mb-5 group bg-slate-900 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-slate-900/60 to-transparent z-10"></div>
+                            <div class="text-center p-4 z-20">
+                                <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 text-2xl">
+                                    <i class="fa-solid fa-book-quran"></i>
+                                </div>
+                                <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Islamic & Modern Web</span>
+                            </div>
+                            <div class="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-[10px] font-semibold text-emerald-300">
+                                Education Profile
+                            </div>
+                        </div>
+
+                        <h3 class="font-heading text-xl font-bold text-white mb-2">
+                            SAUNG QUR'AN TERPADU
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Website profil lembaga pendidikan Islam modern berbasis web responsif. Dilengkapi informasi program tahfidz, pendaftaran santri, jadwal kegiatan, dan galeri.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <span class="text-[11px] text-slate-400 font-mono">Website Profile</span>
+                        <button onclick="showProjectDetail('saung')" class="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center">
+                            Detail Proyek <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="portfolio-item web p-5 rounded-3xl glass-panel border border-slate-800 card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="relative w-full h-48 rounded-2xl overflow-hidden mb-5 group bg-slate-900 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-slate-900/60 to-transparent z-10"></div>
+                            <div class="text-center p-4 z-20">
+                                <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 text-2xl">
+                                    <i class="fa-solid fa-building-user"></i>
+                                </div>
+                                <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Corporate Profile</span>
+                            </div>
+                            <div class="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-[10px] font-semibold text-blue-300">
+                                Company Website
+                            </div>
+                        </div>
+
+                        <h3 class="font-heading text-xl font-bold text-white mb-2">
+                            PT GRAHA MULTI KARYA
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Website profile resmi perusahaan kontraktor & konstruksi profesional. Menampilkan bidang usaha, legalitas, portofolio proyek fisik, serta kontak bisnis.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <a href="https://pt-graha-multi-karya.wuaze.com/" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Kunjungi Live Site
+                        </a>
+                        <button onclick="showProjectDetail('graha')" class="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center">
+                            Detail <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="portfolio-item design app p-5 rounded-3xl glass-panel border border-slate-800 card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="relative w-full h-48 rounded-2xl overflow-hidden mb-5 group bg-slate-900 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-slate-900/60 to-transparent z-10"></div>
+                            <div class="text-center p-4 z-20">
+                                <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-400 text-2xl">
+                                    <i class="fa-solid fa-store"></i>
+                                </div>
+                                <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Branding & App</span>
+                            </div>
+                            <div class="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-[10px] font-semibold text-purple-300">
+                                UMKM Digital
+                            </div>
+                        </div>
+
+                        <h3 class="font-heading text-xl font-bold text-white mb-2">
+                            Katalog & Identity UMKM Digital
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Pengembangan identitas visual logo, kemasan produk, postingan promosi media sosial, serta aplikasi katalog produk Android untuk mitra UMKM lokal.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <span class="text-[11px] text-slate-400 font-mono">Design & Android App</span>
+                        <button onclick="showProjectDetail('umkm')" class="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center">
+                            Detail Proyek <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TARGET CLIENTS SECTION -->
+    <section class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="font-heading text-2xl sm:text-4xl font-extrabold text-white">
+                    Siapa yang Kami Layani?
+                </h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2">
+                    Layanan fleksibel yang disesuaikan untuk berbagai sektor pengguna.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl glass-panel border border-slate-800 text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-4">
+                        <i class="fa-solid fa-shop"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white mb-2">UMKM & Usaha Lokal</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Logo & kemasan produk, katalog produk, konten promosi media sosial, hingga website toko online terjangkau.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-panel border border-slate-800 text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-4">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white mb-2">Lembaga Pendidikan</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Website sekolah/pesantren, materi presentasi, publikasi kegiatan, serta aplikasi android informasi lembaga.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-panel border border-slate-800 text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl mb-4">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white mb-2">Perusahaan & Bisnis</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Company profile korporat, desain visual resmi, landing page penawaran, serta aplikasi internal sederhana.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKFLOW SECTION -->
+    <section id="alur" class="py-24 relative bg-slate-950/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-3">
+                    Alur Kerja Transparan
+                </div>
+                <h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    5 Langkah Mudah Memulai Proyek
+                </h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-3">
+                    Setiap pengerjaan dilakukan terstruktur dengan batas revisi dan estimasi biaya yang disepakati di awal.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                <div class="p-5 rounded-2xl glass-panel border border-slate-800 relative">
+                    <div class="text-3xl font-extrabold text-blue-500/30 mb-2 font-mono">01</div>
+                    <h4 class="font-heading text-base font-bold text-white mb-2">1. Konsultasi</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Memahami kebutuhan, tujuan visual/sistem, dan anggaran klien secara mendalam.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl glass-panel border border-slate-800 relative">
+                    <div class="text-3xl font-extrabold text-purple-500/30 mb-2 font-mono">02</div>
+                    <h4 class="font-heading text-base font-bold text-white mb-2">2. Penawaran</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Kesepakatan ruang lingkup, estimasi waktu, dan rincian biaya proyek.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl glass-panel border border-slate-800 relative">
+                    <div class="text-3xl font-extrabold text-indigo-500/30 mb-2 font-mono">03</div>
+                    <h4 class="font-heading text-base font-bold text-white mb-2">3. Perancangan</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Pembuatan konsep visual, draft awal desain, atau struktur coding aplikasi.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl glass-panel border border-slate-800 relative">
+                    <div class="text-3xl font-extrabold text-pink-500/30 mb-2 font-mono">04</div>
+                    <h4 class="font-heading text-base font-bold text-white mb-2">4. Revisi</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Penyesuaian karya berdasarkan masukan masif/detail klien sesuai kesepakatan.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl glass-panel border border-slate-800 relative">
+                    <div class="text-3xl font-extrabold text-emerald-500/30 mb-2 font-mono">05</div>
+                    <h4 class="font-heading text-base font-bold text-white mb-2">5. Penyelesaian</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Penyerahan file akhir master, live deployment website, atau installer APK.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- TEAM SECTION -->
+    <section id="tim" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400 uppercase tracking-wider mb-3">
+                    Tim Profesional
+                </div>
+                <h2 class="font-heading text-3xl font-extrabold text-white">
+                    Di Balik ARVIO.NSTUDIO
+                </h2>
+            </div>
+
+            <div class="max-w-xl mx-auto p-8 rounded-3xl glass-panel border border-slate-700/60 flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-8">
+                <!-- Icon Tim Profesional sebagai pengganti foto pribadi -->
+                <div class="relative w-28 h-28 rounded-full overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600 p-1 flex-shrink-0 shadow-xl shadow-blue-500/20">
+                    <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-blue-400 text-4xl">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-heading text-2xl font-bold text-white mb-1">Tim Profesional ARVIO.NSTUDIO</h3>
+                    <p class="text-xs font-semibold text-blue-400 mb-3">Kreator & Pengembang Solusi Digital</p>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Dikerjakan secara kolaboratif oleh tim profesional yang ahli di bidang desain grafis, pengembangan web & aplikasi Android, serta penyuntingan media. Kami berkomitmen untuk memberikan hasil kerja yang rapi, fungsional, dan sesuai dengan kebutuhan Anda.
+                    </p>
+                    <div class="flex items-center space-x-3 text-sm">
+                        <a href="https://instagram.com/arvio.nstudio" target="_blank" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-pink-600 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://tiktok.com/@arvio.nstudio" target="_blank" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER & CONTACT CTA -->
+    <footer class="border-t border-slate-800/80 bg-[#05080f] pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                <div class="md:col-span-6 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600 p-0.5 flex items-center justify-center">
+                            <img src="./logo/logo.jpeg" alt="Logo" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="font-heading font-extrabold text-xl tracking-wider text-white">
+                            ARVIO<span class="text-blue-500">.</span>NSTUDIO
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+                        Studio Kreator Digital - Desain Grafis, Pembuatan Website & Pengembangan Aplikasi Android. Menampilkan identitas visual Anda secara rapi dan profesional.
+                    </p>
+                    <div class="text-xs text-slate-300">
+                        <p class="italic text-blue-400 font-semibold mb-2">"Your Ideas, Our Creation!"</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-6 flex flex-col md:items-end justify-between space-y-4">
+                    <div class="space-y-2 text-left md:text-right">
+                        <h4 class="text-sm font-bold text-white mb-2">Hubungi Kami</h4>
+                        <p class="text-xs text-slate-400">
+                            Instagram: <a href="https://instagram.com/arvio.nstudio" target="_blank" class="text-blue-400 hover:underline">@arvio.nstudio</a>
+                        </p>
+                        <p class="text-xs text-slate-400">
+                            TikTok: <a href="https://tiktok.com/@arvio.nstudio" target="_blank" class="text-blue-400 hover:underline">@arvio.nstudio</a>
+                        </p>
+                    </div>
+
+                    <div>
+                        <button onclick="openContactModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-xs font-semibold shadow-lg shadow-blue-500/20">
+                            <i class="fa-brands fa-whatsapp mr-2 text-sm"></i> Konsultasikan Proyek Anda
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800/60 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <p>&copy; 2026 ARVIO.NSTUDIO. Hak Cipta Dilindungi.</p>
+                <p class="mt-2 sm:mt-0">Dirancang secara modern, rapi & responsif.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CONSULTATION MODAL -->
+    <div id="contact-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-lg glass-panel rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl">
+            <button onclick="closeContactModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="font-heading text-2xl font-bold text-white mb-1">Konsultasi Proyek</h3>
+            <p class="text-xs text-slate-400 mb-6">Silakan isi formulir singkat berikut untuk terhubung langsung ke WhatsApp kami.</p>
+
+            <form id="consult-form" onsubmit="sendWhatsApp(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Lengkap / Instansi</label>
+                    <input type="text" id="client-name" required placeholder="Contoh: Budi (PT Sejahtera / UMKM)" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Layanan yang Dibutuhkan</label>
+                    <select id="service-type" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500">
+                        <option value="Pembuatan Website">Pembuatan Website Profile / Landing Page</option>
+                        <option value="Desain Grafis">Desain Grafis (Logo, Banner, PPT)</option>
+                        <option value="Aplikasi Android">Aplikasi Android Sederhana (APK)</option>
+                        <option value="Editing Foto & Video">Editing Foto / Video Promosi</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Pesan / Gambaran Singkat Proyek</label>
+                    <textarea id="project-desc" rows="3" placeholder="Jelaskan kebutuhan atau konsep yang ingin dibuat..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-semibold text-xs flex items-center justify-center shadow-lg shadow-green-500/20">
+                    <i class="fa-brands fa-whatsapp text-base mr-2"></i> Kirim Pesan via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PROJECT DETAIL MODAL -->
+    <div id="project-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-xl glass-panel rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl">
+            <button onclick="closeProjectModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="project-modal-content"></div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const progressBar = document.getElementById('progress-bar');
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+            }, 100);
+
+            setTimeout(() => {
+                dismissSplash();
+            }, 2800);
+        });
+
+        function dismissSplash() {
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 700);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function filterPortfolio(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+
+            event.target.classList.add('border-blue-500', 'text-white');
+            event.target.classList.remove('text-slate-400');
+
+            const items = document.querySelectorAll('.portfolio-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        const projectData = {
+            saung: {
+                title: "SAUNG QUR'AN TERPADU",
+                tag: "Modern & Islamic Profile Website",
+                desc: "Website profil terpadu untuk lembaga pendidikan Islam Saung Qur'an. Dirancang dengan nuansa islami modern yang bersih dan responsif. Memudahkan calon santri/orang tua melihat program hafalan, jadwal kegiatan harian, berita lembaga, serta pendaftaran online.",
+                features: ["Sistem Informasi Program Tahfidz", "Formulir Pendaftaran Online", "Jadwal & Agenda Kegiatan", "Desain Mobile Responsive"],
+                link: null
+            },
+            graha: {
+                title: "PT GRAHA MULTI KARYA",
+                tag: "Corporate Construction Profile",
+                desc: "Website resmi profil perusahaan konstruksi PT Graha Multi Karya. Menyajikan gambaran umum legalitas, layanan kontraktor, jajaran tim, galeri proyek fisik, serta integrasi kontak bisnis resmi.",
+                features: ["Showcase Portofolio Konstruksi", "Desain Korporat Elegan", "Struktur Informasi Lengkap", "Aksesibilitas Cepat"],
+                link: "https://pt-graha-multi-karya.wuaze.com/"
+            },
+            umkm: {
+                title: "Katalog & Branding UMKM Digital",
+                tag: "Identitas Visual & Application",
+                desc: "Solusi terpadu branding UMKM meliputi pembuatan logo visual, perancangan kemasan produk, materi postingan media sosial, serta penyediaan aplikasi Android katalog digital sederhana.",
+                features: ["Desain Logo & Kemasan", "Aplikasi Katalog Produk APK", "Konten Video Promosi Reels/TikTok"],
+                link: null
+            }
+        };
+
+        function showProjectDetail(key) {
+            const data = projectData[key];
+            if (!data) return;
+
+            const modalContent = document.getElementById('project-modal-content');
+            let featuresHTML = data.features.map(f => `<li class="flex items-center text-xs text-slate-300"><i class="fa-solid fa-circle-check text-blue-400 mr-2"></i> ${f}</li>`).join('');
+
+            let actionBtnHTML = '';
+            if (data.link) {
+                actionBtnHTML = `<a href="${data.link}" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs inline-flex items-center">
+                    Kunjungi Website <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                </a>`;
+            }
+
+            modalContent.innerHTML = `
+                <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">${data.tag}</span>
+                <h3 class="font-heading text-2xl font-bold text-white mt-1 mb-4">${data.title}</h3>
+                <p class="text-xs text-slate-300 leading-relaxed mb-6">${data.desc}</p>
+                <div class="mb-6">
+                    <h4 class="text-xs font-bold text-slate-200 mb-2">Fitur Utama Proyek:</h4>
+                    <ul class="space-y-2">${featuresHTML}</ul>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                    ${actionBtnHTML}
+                    <button onclick="closeProjectModal(); openContactModal('${data.title}')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold text-xs">
+                        Pesan Proyek Serupa
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('project-modal').classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+        }
+
+        function openContactModal(service = '') {
+            if (service) {
+                document.getElementById('service-type').value = service;
+            }
+            document.getElementById('contact-modal').classList.remove('hidden');
+        }
+
+        function closeContactModal() {
+            document.getElementById('contact-modal').classList.add('hidden');
+        }
+
+        function sendWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('client-name').value;
+            const service = document.getElementById('service-type').value;
+            const desc = document.getElementById('project-desc').value;
+
+            const text = `Halo ARVIO.NSTUDIO, saya ${name}.\nSaya ingin berkonsultasi mengenai layanan: *${service}*.\n\nCatatan Tambahan:\n"${desc}"`;
+            const encodedText = encodeURIComponent(text);
+            
+            window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+            closeContactModal();
+        }
+    </script>
+</body>
+</html>
